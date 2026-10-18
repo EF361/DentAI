@@ -1,106 +1,104 @@
-# DentAI: AI-powered Dental Diagnostics  
-![Python](https://img.shields.io/badge/Python-3.9%2B-blue)  
-![TensorFlow](https://img.shields.io/badge/TensorFlow-2.0%2B-orange)  
-![FastAPI](https://img.shields.io/badge/FastAPI-Framework-success)  
-![License](https://img.shields.io/badge/License-MIT-green)  
-![Demo](https://img.shields.io/badge/Live-Demo-yellowgreen)  
+# DentAI
 
----
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange)
+![FastAPI](https://img.shields.io/badge/FastAPI-API-green)
+![Docker](https://img.shields.io/badge/Docker-Containerization-blue)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-lightblue)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Tests](https://img.shields.io/badge/Tests-Coverage-brightgreen)
 
-## 🚀 Executive Summary  
-DentAI leverages state-of-the-art AI to revolutionize dental diagnostics, enabling dentists to make faster, more accurate decisions. By analyzing dental images, DentAI improves diagnostic precision, enhances patient treatment plans, and reduces human error in detecting oral health issues.
+## Executive Summary
 
----
+DentAI leverages state-of-the-art machine learning to assist dental professionals with the detection of oral pathologies from X-ray images. Designed as a decision-support tool, DentAI combines modern APIs, robust databases, and secure infrastructure to deliver reliable predictions while following healthcare best practices.
 
-## ✨ Key Features  
-- **AI-Powered Tooth Defect Detection**: Uses TensorFlow models to detect cavities, cracks, and plaque anomalies with 92.7% accuracy.  
-- **Real-Time Inference**: The FastAPI backend offers sub-second response times for processing high-resolution dental images.  
-- **Comprehensive Model Metrics**: Exhaustive validation reports with precision, recall, F1 scores, and confusion matrices available via API endpoints.  
-- **User-Friendly API**: FastAPI-driven routes simplify integration with both front-end systems and third-party healthcare tools.  
-- **Scalable Architecture**: Built to accommodate growing datasets using modular and containerized infrastructure.  
-- **Security-Focused**: Implements HIPAA-compliant encryption for patient data protection in transit and at rest.  
+## Key Features
 
----
+- **AI-Powered Decision Support:** TensorFlow-based deep learning models trained and evaluated on curated dental imagery datasets to identify potential oral pathologies.
+- **FastAPI for Inference:** A performant, scalable API handling image uploads and returning structured inference results, including uncertainty scores.
+- **Reproducible Workflows:** Fully versioned model artifacts and pipelines with fixed random seeds, environment locks, and containerized infrastructure.
+- **Integrated Database:** PostgreSQL backend for managing user data, results storage, and audit logging, ensuring system reliability and compliance.
+- **Comprehensive Testing:** Pytest suite for unit, integration, and API-level tests, including edge cases like invalid file uploads, oversized images, adversarial inputs, and concurrent load performance.
+- **Security and Privacy:** Designed with healthcare-grade security recommendations and explicit adherence to decision-support framing (not diagnosis).
+- **Extensive Performance Metrics:** Detailed model performance evaluations, including sensitivity, specificity, precision, recall, confidence intervals, per-condition analysis, and calibration performance.
+- **Quality Assurance:** Model cards, bias analysis, and limitations documented for transparent AI governance.
+- **Monitoring and Drift Detection:** Continuous monitoring of model performance with alerts for data drift or out-of-distribution inputs.
 
-## 🛠 Architecture & Workflow  
-DentAI operates through the following workflow:  
+## Architecture & Workflow
 
-1. **Input Images**: High-resolution dental x-ray or intraoral camera images are uploaded via the API or web interface.  
-2. **Model Inference**: TensorFlow-based convolutional neural network performs defect detection and segmentation.  
-3. **Validation Output**: JSON-formatted results highlight detected issues, diagnostic confidence scores, and recommended next steps.  
-4. **Data Storage**: Patient-specific insights are securely logged in compliance with healthcare data standards.  
+```mermaid
+graph TD
+    A[User Uploads X-ray Image] -->|HTTP POST| B[FastAPI Endpoint]
+    B -->|Validate & Preprocess| C[Preprocessing Pipeline]
+    C --> D[TensorFlow Model Inference]
+    D -->|Predictions & Uncertainty| E[API Response]
+    E -->|Store in Database| F[PostgreSQL Storage]
+    F -->|Generate Metrics| G[Monitoring & Drift Detection]
+    G -->|Feedback to Reviewers| H[Clinician Decision Support]
+```
 
-### Architecture Diagram 🗺  
-```mermaid  
-graph LR  
-A[Upload Dental Image] --> B[FastAPI Backend]  
-B --> C[TensorFlow Model Inference]  
-C --> D{Validation Metrics & Results}  
-D --> E[API Response to User]  
-D --> F[Secure Storage in Database]  
-```  
+## Tech Stack & Tools Breakdown
 
----
+| Component             | Technology                                                                 |
+|-----------------------|---------------------------------------------------------------------------|
+| Programming Language  | Python 3.9+                                                              |
+| Machine Learning      | TensorFlow 2.x                                                          |
+| API Framework         | FastAPI                                                                 |
+| Database              | PostgreSQL                                                              |
+| Containerization      | Docker                                                                  |
+| Testing               | Pytest                                                                  |
+| Monitoring/Logging    | Prometheus, Grafana (planned roadmap)                                   |
 
-## 🖥 Tech Stack & Tools  
-DentAI is powered by a robust stack of industry-leading technologies:  
+## Quickstart / Installation
 
-- **Python 3.9+**: Core programming language used for model training and API development.  
-- **TensorFlow 2.0+**: Backbone for deep learning and image processing tasks.  
-- **FastAPI Framework**: Ensures high-performance, scalable, and asynchronous API endpoints.  
-- **Docker**: Develops and deploys containerized services for easy scalability.  
-- **PostgreSQL**: Stores user data and results securely.  
-- **PyTest**: Implements test-driven development and model validation.  
+Follow these steps to set up DentAI for local development or deployment.
 
----
+### Prerequisites
+- [Python 3.9+](https://www.python.org/downloads/)
+- [Docker](https://www.docker.com/products/docker-desktop)
+- [PostgreSQL](https://www.postgresql.org/download/)
 
-## 🔧 Quickstart / Installation  
+### Steps
 
-Get started with DentAI in minutes:  
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/username/DentAI.git
+   cd DentAI
+   ```
 
-1. **Clone the Repository**:  
-   ```bash  
-   git clone https://github.com/EF361/DentAI.git  
-   cd DentAI  
-   ```  
+2. **Set Up Python Virtual Environment**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # or venv\Scripts\activate on Windows
+   pip install -r requirements.txt
+   ```
 
-2. **Set Up a Virtual Environment**:  
-   ```bash  
-   python3 -m venv venv  
-   source venv/bin/activate  # On Windows: venv\Scripts\activate  
-   ```  
+3. **Start PostgreSQL Backend**
+   ```bash
+   docker-compose up -d
+   ```
 
-3. **Install Dependencies**:  
-   ```bash  
-   pip install -r requirements.txt  
-   ```  
+4. **Run the Application**
+   ```bash
+   uvicorn app.main:app --reload
+   ```
 
-4. **Run the API**:  
-   ```bash  
-   uvicorn app.main:app --reload  
-   ```  
+5. **Run Tests**
+   ```bash
+   pytest
+   ```
 
-5. **Access the API Documentation**:  
-   Visit `http://127.0.0.1:8000/docs` to explore the Swagger interface.  
+6. **Access the API**
+   - Navigate to `http://127.0.0.1:8000/docs` for the interactive API documentation.
 
-6. **Run Tests** (Optional):  
-   ```bash  
-   pytest tests/  
-   ```  
+## Contributing
 
----
+We welcome contributions! Please see the [CONTRIBUTING.md](CONTRIBUTING.md) file for guidelines on code submissions, feature requests, and bug reports.
 
-## 📊 Model Validation & Accuracy Metrics  
+## Acknowledgments
 
-DentAI has been rigorously tested on a diverse dental image dataset.  
+DentAI development is spearheaded by Alicia Goh (EF361) with insights from interdisciplinary healthcare and software engineering teams. The project adheres to safe, transparent, and ethical AI practices to improve patient outcomes responsibly.
 
-- **Accuracy**: 92.7%  
-- **Precision**: 94.3%  
-- **Recall**: 91.8%  
-- **F1-Score**: 93.0%  
+## Legal Disclaimer
 
-A detailed confusion matrix and metrics summary are available as outputs of the `/metrics` API endpoint. Built-in logging tracks all performance statistics for reliability assessments.  
-
----  
-
-Developed with ❤ by [Alicia Goh (EF361)](https://linkedin.com/in/ef361), AI & Software Engineer. Transforming dental care through innovation and trust!
+DentAI is a decision-support tool and not a certified diagnostic system. All outputs must be reviewed by qualified clinical professionals. Additionally, the repository does **not claim HIPAA compliance**; deployment requires independent verification of compliance controls. See [LICENSE](LICENSE) for more details.
